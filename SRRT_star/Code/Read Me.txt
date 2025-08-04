@@ -1,0 +1,36 @@
+
+程序使用说明
+
+改进：根据障碍物密度调节步长、目标趋向性参数(type=1)；根据子区域节点的密集程度，结合高斯分布，修正子区域随机采样的概率(type=2)；两个结合(type=3)
+
+1. RRTstar Test Script 主函数：加载地图，定义初始和目标节点，进行 MSH-RRT，完成后绘制最终 RRT，并输出结果
+
+2. RRTstar_Algorithm 进行迭代生成 RRT，当搜索到可行路径或达到最大迭代次数时结束，输出搜索结果
+
+3. findNearVertex 查找跟随机节点的最近节点；
+
+4. findNewVertex 计算新节点的坐标；
+
+5. isClose 判断新节点是否与最近节点（新节点的母节点）的子节点距离过近；
+
+6. isObstacleFree 判断两点是否可连通，即两点间不存在障碍物；
+
+7. isGetGoal 判断最新节点是否可到达目标节点；
+
+8. getCostFroomRoot 计算最新节点的开销；
+
+9. getObstacleScale 将地图划分为矩阵区域，并通过蒙特卡洛法计算出每个区域障碍物所占的比例；
+
+10. reviseObstacleScale 将障碍物比例区间缩放到指定比例区间；
+
+11. getNeighbours 在整个 RRT 中搜索最新节点指定半径区域内无碰撞的节点下标；
+
+12. chooseParent 在临近区域内节点中查找到最新节点开销最小的节点，以作为新节点的母节点；
+
+13. rewire 将临近区域内的节点逐个尝试将新节点作为母节点，进行重新连接，以减少各节点的开销；
+
+14. resetAllChildVertexCost 修改与指定节点以及其所有相关子节点（子节点的子节点...）的开销；
+
+15. optimizePath 利用贪心算法，优化路径：减少路径拐点，缩短路径；
+
+16. RRT_Plot 绘制地图，RRT以及可行路径；
